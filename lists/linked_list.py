@@ -2,7 +2,7 @@ class Node:
 
     def __init__(self, data):
         self.data = data
-        self.next = None
+        self.next_ = None
 
 
 class LinkedList:
@@ -17,34 +17,34 @@ class LinkedList:
             self._head = node
         else:
             p = self._head
-            while p.next is not None:
-                p = p.next
-            p.next = node
+            while p.next_ is not None:
+                p = p.next_
+            p.next_ = node
         self._count += 1
 
     def remove_head(self):
         item = self._head.data
-        next = self._head.next
-        self._head = next
+        next_ = self._head.next_
+        self._head = next_
         self._count -= 1
         return item
 
     def remove_tail(self):
-        if not self._head.next:
+        if not self._head.next_:
             data = self._head.data
             self._head = None
             self._count -= 1
             return data
 
-        next = self._head
+        next_ = self._head
         penult = None
 
-        while next.next is not None:
-            penult = next
-            next = next.next
-        penult.next = None
+        while next_.next_ is not None:
+            penult = next_
+            next_ = next_.next_
+        penult.next_ = None
         self._count -= 1
-        return next.data
+        return next_.data
 
     def head(self):
         return self._head.data
@@ -52,8 +52,8 @@ class LinkedList:
     def tail(self):
         p = self._head
 
-        while p.next is not None:
-            p = p.next
+        while p.next_ is not None:
+            p = p.next_
 
         return p.data
 
@@ -65,7 +65,7 @@ class LinkedList:
             if next_.data == data:
                 found = data
                 break
-            next_ = next_.next
+            next_ = next_.next_
         return found
 
     def __len__(self):
