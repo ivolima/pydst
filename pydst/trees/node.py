@@ -12,4 +12,4 @@ class Node(object):
         self.value = value
 
     def is_leaf(self):
-        return self.left == None and self.right == None
+        return self.left is None and self.right is None

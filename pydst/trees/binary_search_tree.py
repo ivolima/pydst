@@ -18,7 +18,7 @@ class BinarySearchTree(object):
         return self.size
 
     def is_empty(self):
-        return self.root == None
+        return self.root is None
 
     def get_left(self, node):
         return node.left
@@ -57,18 +57,21 @@ class BinarySearchTree(object):
                 parent.right = new_node
         self.size += 1
 
-    def _inorder(self, node, elements=[]):
+    def _inorder(self, node, elements=None):
         if node is None:
             return
 
+        elements = [] if elements is None else elements
         self._inorder(node.left, elements)
         elements.append(node.value)
         self._inorder(node.right, elements)
 
         return elements
 
-    def _preorder(self, node, elements=[]):
+    def _preorder(self, node, elements=None):
+        elements = [] if elements is None else elements
         elements.append(node.value)
+
         if node.left is not None:
             self._preorder(node.left, elements)
         if node.right is not None:
@@ -76,12 +79,15 @@ class BinarySearchTree(object):
 
         return elements
 
-    def _postorder(self, node, elements=[]):
+    def _postorder(self, node, elements=None):
+        elements = [] if elements is None else elements
+
         if node.left is not None:
             self._postorder(node.left, elements)
         if node.right is not None:
             self._postorder(node.right, elements)
         elements.append(node.value)
+
         return elements
 
     def traversal(self, method='inorder'):
