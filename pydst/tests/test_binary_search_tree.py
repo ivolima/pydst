@@ -112,17 +112,12 @@ class TestBinarySearchTree(unittest.TestCase):
             self.assertIsInstance(result, list, 'Return must be a list instance')
             self.assertListEqual([], result,'Result should be empty list')
 
-    def test_search_empty_tree(self):
-        """
-        Searching a node in an empty tree
-        """
-        node = self.bst.search(15)
-        self.assertIsNone(node, 'Return must be None because tree is empty')
-
     def test_search_inexistent_value(self):
         """
         Searching a node that doesn't exist in tree
         """
+        node = self.bst.search(15)
+        self.assertIsNone(node, 'Return must be None because tree is empty')
         self.add_fake_elements()
         node = self.bst.search(15)
         self.assertIsNone(node, 'Return must be None because node isn\'t in tree')
@@ -141,8 +136,25 @@ class TestBinarySearchTree(unittest.TestCase):
         self.assertEqual(2, intermediate_node.value, 'Node value doesn\'t match')
         self.assertEqual(1, leaf_node.value, 'Node value doesn\'t match')
 
-    def test_extremes(self):
-        self.assertTrue(False, 'Continue tests from here')
+    def test_get_min(self):
+        """
+        Getting min value from tree
+        """
+        node = self.bst.get_min()
+        self.assertIsNone(node, 'Node should be None because tree is empty')
+        self.add_fake_elements()
+        node = self.bst.get_min()
+        self.assertEqual(1, node.value, 'Node value doesn\'t match')
+
+    def test_get_max(self):
+        """
+        Getting max value from tree
+        """
+        node = self.bst.get_max()
+        self.assertIsNone(node, 'Node should be None because tree is empty')
+        self.add_fake_elements()
+        node = self.bst.get_max()
+        self.assertEqual(5, node.value, 'Node value doesn\'t match')
 
 if __name__ == '__main__':
     unittest.main()

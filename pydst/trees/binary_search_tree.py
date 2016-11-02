@@ -72,6 +72,28 @@ class BinarySearchTree(object):
         else:
             return None
 
+    def _extremes(self, node, find_min=True):
+        if self.is_empty():
+            return None
+
+        keep_left = (find_min and node.left is not None)
+        keep_right = (not find_min and node.right is not None)
+
+        while keep_left or keep_right:
+            if find_min and node.left is not None:
+                node = node.left
+            elif not find_min and node.right is not None:
+                node = node.right
+            else:
+                break
+        return node
+
+    def get_min(self):
+        return self._extremes(self.root, find_min=True)
+
+    def get_max(self):
+        return self._extremes(self.root, find_min=False)
+
     def _inorder(self, node, elements=None):
         if node is None:
             return
