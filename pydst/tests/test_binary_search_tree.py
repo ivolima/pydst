@@ -112,8 +112,37 @@ class TestBinarySearchTree(unittest.TestCase):
             self.assertIsInstance(result, list, 'Return must be a list instance')
             self.assertListEqual([], result,'Result should be empty list')
 
-    def test_get_left(self):
-        self.assertTrue(False)
+    def test_search_empty_tree(self):
+        """
+        Searching a node in an empty tree
+        """
+        node = self.bst.search(15)
+        self.assertIsNone(node, 'Return must be None because tree is empty')
+
+    def test_search_inexistent_value(self):
+        """
+        Searching a node that doesn't exist in tree
+        """
+        self.add_fake_elements()
+        node = self.bst.search(15)
+        self.assertIsNone(node, 'Return must be None because node isn\'t in tree')
+
+    def test_search_existent_value(self):
+        """
+        Searching existent nodes at different positions in tree
+        """
+        self.add_fake_elements()
+        root_node = self.bst.search(3)
+        intermediate_node = self.bst.search(2)
+        leaf_node = self.bst.search(1)
+        self.assertIsNone(root_node.parent, 'Node should\'t have parent')
+        self.assertTrue(leaf_node.is_leaf(), 'Node should be a leaf')
+        self.assertEqual(3, root_node.value, 'Node value doesn\'t match')
+        self.assertEqual(2, intermediate_node.value, 'Node value doesn\'t match')
+        self.assertEqual(1, leaf_node.value, 'Node value doesn\'t match')
+
+    def test_extremes(self):
+        self.assertTrue(False, 'Continue tests from here')
 
 if __name__ == '__main__':
     unittest.main()

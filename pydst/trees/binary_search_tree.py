@@ -57,6 +57,21 @@ class BinarySearchTree(object):
                 parent.right = new_node
         self.size += 1
 
+    def search(self, value, start=None):
+        node = start if start is not None else self.root
+
+        if self.is_empty():
+            return None
+
+        if value == node.value:
+            return node
+        elif value < node.value and node.left is not None:
+            return self.search(value, node.left)
+        elif value > node.value and node.right is not None:
+            return self.search(value, node.right)
+        else:
+            return None
+
     def _inorder(self, node, elements=None):
         if node is None:
             return
