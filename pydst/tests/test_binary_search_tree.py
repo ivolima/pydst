@@ -156,5 +156,73 @@ class TestBinarySearchTree(unittest.TestCase):
         node = self.bst.get_max()
         self.assertEqual(5, node.value, 'Node value doesn\'t match')
 
+    def test_depth(self):
+        """
+        Getting tree depth for nodes in different positions
+        """
+        # depth for empty tree
+        depth = self.bst.depth(self.bst.root)
+        self.assertEqual(0, depth, 'Depth should be 0 because tree is empty')
+        self.add_fake_elements()
+        # depth for tree with 3 levels starting from root node
+        depth = self.bst.depth(self.bst.root)
+        self.assertEqual(3, depth, 'Depth doesn\'t match')
+        # depth for tree with 3 level starting from intermediate node
+        depth = self.bst.depth(self.bst.search(2))
+        self.assertEqual(2, depth, 'Depth doesn\'t match')
+        # depth for tree with 3 levels starting from leaf node
+        depth = self.bst.depth(self.bst.search(1))
+        self.assertEqual(1, depth, 'Depth doesn\'t match')
+
+
+    def test_remove_inexistent_value(self):
+        """
+        Removing inexistent node in tree
+        """
+        node = self.bst.remove(15)
+        self.assertIsNone(node, 'Return must be None because tree is empty')
+        self.add_fake_elements()
+        prev_size = len(self.bst)
+        node = self.bst.remove(15)
+        self.assertEqual(prev_size, len(self.bst), 'Tree size has changed')
+        self.assertIsNone(node, 'Return must be None because node isn\'t in tree')
+
+    def test_remove_leaf(self):
+        """
+        Removing a node with no child
+        """
+        self.add_fake_elements()
+        prev_size = len(self.bst)
+        leaf_node = self.bst.remove(1)
+        self.assertEqual(prev_size-1, len(self.bst), 'Tree size is incompatible')
+        self.assertIsNone(self.bst.search(leaf_node.value), 'If previously removed, should be None')
+
+    def test_remove_node_with_single_child(self):
+        """
+        Removing a node with a single child
+        """
+        self.add_fake_elements()
+        prev_size = len(self.bst)
+        node = self.bst.search(2)
+        parent = node.parent if node else None
+        child = node.left if node.left else node.right
+        intermediate_node = self.bst.remove(2)
+        self.assertEqual(prev_size-1, len(self.bst), 'Tree size is incompatible')
+        self.assertIsNone(self.bst.search(intermediate_node.value), 'If previously removed, should be None')
+        self.assertEqual(child.parent, parent, 'Deleted node\'s parent and child references should be updated')
+
+    def test_remove_node_with_both_children(self):
+        self.add_fake_elements()
+        self.bst.add(8)
+        self.bst.add(6)
+        self.bst.add(9)
+        prev_size = len(self.bst)
+        node = self.bst.search(8)
+        parent = node.parent if node else None
+        # TODO: test removal with different situations testing which subtree is deeper
+        node = self.bst.remove(8)
+        self.assertEqual(prev_size-1, len(self.bst), 'Tree size is incompatible')
+
+
 if __name__ == '__main__':
     unittest.main()

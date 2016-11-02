@@ -88,11 +88,74 @@ class BinarySearchTree(object):
                 break
         return node
 
-    def get_min(self):
-        return self._extremes(self.root, find_min=True)
+    def get_min(self, node=None):
+        node = node if node else self.root
+        return self._extremes(node, find_min=True)
 
-    def get_max(self):
-        return self._extremes(self.root, find_min=False)
+    def get_max(self, node=None):
+        node = node if node else self.root
+        return self._extremes(node, find_min=False)
+
+    def has_left(self, node):
+        return node.left is not None
+
+    def has_right(self, node):
+        return node.right is not None
+
+    def _remove_leaf(self, node):
+        parent = node.parent
+        if parent is not None:
+            if parent.left == node:
+                parent.left = None
+            else:
+                parent.right = None
+        node.parent = None
+        return node
+
+    def _pass_child_up(self, node):
+        parent = node.parent
+        child = node.left if node.left is not None else node.right
+        child.parent = parent
+
+        if parent.left == node:
+            parent.left = child
+        else:
+            parent.right = child
+
+        return node
+
+    def depth(self, node):
+        if node is None:
+            return 0
+        return 1  + max(self.depth(node.left) if node.left is not None else 0,
+                        self.depth(node.right) if node.right is not None else 0)
+
+    def _successor(self, node):
+        # checks which side has biggest subtree
+        if self.depth(node.left) < self.depth(node.right):
+            return self.get_min(node.right)
+        return self.get_max(node.left)
+
+    def remove(self, value):
+        node = self.search(value)
+        if node is None:
+            return None
+        if node.is_leaf():
+            # just remove it
+            self.size -= 1
+            return self._remove_leaf(node)
+        elif node.left is not None and node.right is not None:
+            # both children are present; find sucessor
+            successor = self._successor(node)
+            if not successor.is_leaf():
+                self._pass_child_up(successor)
+            node.value = successor.value
+            self.size -= 1
+            return Node(node.value)
+        else:
+            # only one child is present
+            self.size -= 1
+            return self._pass_child_up(node)
 
     def _inorder(self, node, elements=None):
         if node is None:
