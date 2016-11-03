@@ -9,6 +9,9 @@ pydst
    :target: https://landscape.io/github/ivolima/pydst/master
    :alt: Code Health
 
+.. image:: https://coveralls.io/repos/github/ivolima/pydst/badge.svg?branch=master
+    :target: https://coveralls.io/github/ivolima/pydst?branch=master
+    :alt: Coverage
 
 
 Dependencies
