@@ -4,8 +4,12 @@ python:
   - "2.7"
 
 # command to install dependencies
-#install: "pip install -r requirements.txt"
+install:
+  - pip install coveralls
 
 # command to run tests
 script: 
-  - python setup.py test
+  - coverage run --source=pydst setup.py test
+
+after_success:
+  - coveralls
