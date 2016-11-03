@@ -3,7 +3,7 @@
 # Author: Ivo Romario <ivo.romario@gmail.com>
 # License:
 
-from node import Node
+from .node import Node
 
 
 class BinarySearchTree(object):
