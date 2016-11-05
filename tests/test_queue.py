@@ -22,7 +22,6 @@ class TestQueue(unittest.TestCase):
         self.q.enqueue(1)
         self.assertEqual(1, len(self.q), 'Size doesn\'t match')
 
-
     def test_dequeue(self):
         """Removing item from queue"""
         self.q.enqueue(1)
