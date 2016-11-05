@@ -18,8 +18,10 @@ class Stack(object):
         self.size += 1
 
     def pop(self):
-        self.items.pop()
+        if self.is_empty():
+            raise IndexError('Pop from empty stack')
         self.size -= 1
+        return self.items.pop()
 
     def peek(self):
         return self.items[len(self.items)-1]
