@@ -4,20 +4,21 @@
 class Queue(object):
 
     def __init__(self):
-        self.items = []
-        self.size = 0
+        self._items = []
 
     def __len__(self):
-        return self.size
+        return len(self._items)
+
+    @property
+    def size(self):
+        return len(self._items)
 
     def is_empty(self):
-        return self.size == 0
+        return len(self._items) == 0
 
     def enqueue(self, item):
-        self.items.insert(0, item)
-        self.size += 1
+        self._items.insert(0, item)
 
     def dequeue(self):
-        self.items.pop(0)
-        self.size -= 1
+        return self._items.pop(0)
 

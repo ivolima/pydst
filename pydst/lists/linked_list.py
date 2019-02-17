@@ -1,12 +1,18 @@
 class Node:
-
+    """
+    Node (root) class
+    """
     def __init__(self, data):
         self.data = data
         self.next_ = None
 
+    def __str__(self):
+        return "<class Node: {}>".format(self.data)
 
 class LinkedList:
-
+    """
+    Linked Class
+    """
     def __init__(self):
         self._head = None
         self._count = 0
@@ -15,6 +21,7 @@ class LinkedList:
         node = Node(item)
         if self._head is None:
             self._head = node
+
         else:
             p = self._head
             while p.next_ is not None:
@@ -58,16 +65,20 @@ class LinkedList:
         return p.data
 
     def search(self, data):
+
         next_ = self._head
         found = None
-
+        
         while next_:
             if next_.data == data:
                 found = data
                 break
             next_ = next_.next_
+
         return found
+
+    def head(self):
+        return self._head.data
 
     def __len__(self):
         return self._count
-

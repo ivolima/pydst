@@ -5,8 +5,7 @@
 
 import unittest
 
-from pydst.trees.node import Node
-from pydst.trees.binary_search_tree import BinarySearchTree
+from pydst.trees.binary_search_tree import BinarySearchTree, Node
 
 
 class TestBinarySearchTree(unittest.TestCase):
