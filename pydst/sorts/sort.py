@@ -1,9 +1,7 @@
-from dataclasses import dataclass
-
-@dataclass
 class Node:
-    data: int
-    _next = None
+    def __init__(self, data):
+        self.data = data
+        self._next = None
 
 class Sort:
 
