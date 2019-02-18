@@ -9,6 +9,7 @@ class Node:
     def __str__(self):
         return "<class Node: {}>".format(self.data)
 
+
 class LinkedList:
     """
     Linked Class
@@ -68,7 +69,7 @@ class LinkedList:
 
         next_ = self._head
         found = None
-        
+
         while next_:
             if next_.data == data:
                 found = data
@@ -76,9 +77,6 @@ class LinkedList:
             next_ = next_.next_
 
         return found
-
-    def head(self):
-        return self._head.data
 
     def __len__(self):
         return self._count

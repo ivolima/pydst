@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+
 class Queue(object):
 
     def __init__(self):
@@ -21,4 +22,3 @@ class Queue(object):
 
     def dequeue(self):
         return self._items.pop(0)
-

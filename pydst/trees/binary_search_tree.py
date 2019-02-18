@@ -11,7 +11,7 @@ class Node(object):
 
 class BinarySearchTree(object):
 
-    _TRANSVERSAL_METHODS  = ['inorder', 'preorder', 'postorder' ]
+    _TRANSVERSAL_METHODS = ['inorder', 'preorder', 'postorder']
 
     def __init__(self, root=None):
         self.root = root
@@ -74,7 +74,6 @@ class BinarySearchTree(object):
         else:
             return None
 
-
     def _extremes(self, node, find_min=True):
         if self.is_empty():
             return None
@@ -115,14 +114,14 @@ class BinarySearchTree(object):
         return node
 
     def _pass_child_up(self, node):
-        parent = node.parent 
+        parent = node.parent
         child = node.left if node.left is not None else node.right
         child.parent = parent
 
         if parent.left == node:
-            parent.left = child 
+            parent.left = child
         else:
-            paren.right = child
+            parent.right = child
         return node
 
     def depth(self, node):
@@ -140,7 +139,7 @@ class BinarySearchTree(object):
         node = self.search(value)
         if node is None:
             return None
-        
+
         if node.is_leaf():
             self.size -= 1
             return self._remove_leaf(node)
@@ -177,7 +176,6 @@ class BinarySearchTree(object):
 
         return elements
 
-
     def _postorder(self, node, elements=None):
         elements = [] if elements is None else elements
 
@@ -188,7 +186,6 @@ class BinarySearchTree(object):
 
         elements.append(node.value)
         return elements
-
 
     def traversal(self, method='inorder'):
         if method not in self._TRANSVERSAL_METHODS:
@@ -202,4 +199,3 @@ class BinarySearchTree(object):
             return self._preorder(self.root)
         else:
             return self._postorder(self.root)
-
