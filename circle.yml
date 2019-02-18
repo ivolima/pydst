@@ -4,6 +4,7 @@ jobs:
   test:
     machine: true
     working_directory: ~/pydst
+    environment: - PY_PATH: /opt/circleci/.pyenv/versions/3.6.3/bin/
 
     steps:
       - checkout
@@ -17,6 +18,7 @@ jobs:
       - run:
           name: "Run flake 8"
           command: |
+            export PATH=$PATH:$PY_PATH
             pip3.6 install -U flake8
             flake8 pydst/*
 
