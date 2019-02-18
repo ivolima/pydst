@@ -80,6 +80,7 @@ class TestLinkedList(unittest.TestCase):
         le.add(2)
         le.add(3)
 
+
         self.assertEqual(3, len(le), 'Size doesn\'t match')
 
         self.assertEqual(3, le.search(3), 'Items doesn\'t match')

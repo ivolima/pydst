@@ -1,27 +1,21 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-
-class Stack(object):
+class Stack:
 
     def __init__(self):
-        self.items = []
-        self.size = 0
+        self._items = []
 
     def __len__(self):
-        return self.size
+        return len(self._items)
 
     def is_empty(self):
-        return self.size == 0
+        return len(self._items) == 0
 
-    def push(self, item):
-        self.items.append(item)
-        self.size += 1
+    def push(self, data):
+        self._items.append(data)
 
     def pop(self):
         if self.is_empty():
-            raise IndexError('Pop from empty stack')
-        self.size -= 1
-        return self.items.pop()
+            raise IndexError("It is impossible pop empty stack")
+        return self._items.pop()
 
     def peek(self):
-        return self.items[len(self.items)-1]
+        return self._items[len(self._items)-1]

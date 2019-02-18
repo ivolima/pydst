@@ -1,14 +1,17 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-# Author: Ivo Romario <ivo.romario@gmail.com>
-# License:
+class Node(object):
+    def __init__(self, value):
+        self.parent = None
+        self.left = None
+        self.right = None
+        self.value = value
 
-from .node import Node
+    def is_leaf(self):
+        return self.left is None and self.right is None
 
 
 class BinarySearchTree(object):
 
-    __TRAVERSAL_METHODS = ['inorder', 'preorder', 'postorder']
+    _TRANSVERSAL_METHODS = ['inorder', 'preorder', 'postorder']
 
     def __init__(self, root=None):
         self.root = root
@@ -32,13 +35,13 @@ class BinarySearchTree(object):
         if self.root is None:
             self.root = new_node
         else:
-            # search for a place to insert, starting from root node
             parent = self.root
             while parent.value != value:
                 if value < parent.value:
                     if parent.left is None:
                         break
                     parent = parent.left
+
                 elif value > parent.value:
                     if parent.right is None:
                         break
@@ -59,7 +62,6 @@ class BinarySearchTree(object):
 
     def search(self, value, start=None):
         node = start if start is not None else self.root
-
         if self.is_empty():
             return None
 
@@ -75,7 +77,6 @@ class BinarySearchTree(object):
     def _extremes(self, node, find_min=True):
         if self.is_empty():
             return None
-
         keep_left = (find_min and node.left is not None)
         keep_right = (not find_min and node.right is not None)
 
@@ -121,31 +122,28 @@ class BinarySearchTree(object):
             parent.left = child
         else:
             parent.right = child
-
         return node
 
     def depth(self, node):
         if node is None:
             return 0
-        return 1  + max(self.depth(node.left) if node.left is not None else 0,
-                        self.depth(node.right) if node.right is not None else 0)
+        return 1 + max(self.depth(node.left) if node.left is not None else 0,
+                       self.depth(node.right) if node.right is not None else 0)
 
     def _successor(self, node):
-        # checks which side has biggest subtree
         if self.depth(node.left) < self.depth(node.right):
             return self.get_min(node.right)
-        return self.get_max(node.left)
+        return self.get_min(node.left)
 
     def remove(self, value):
         node = self.search(value)
         if node is None:
             return None
+
         if node.is_leaf():
-            # just remove it
             self.size -= 1
             return self._remove_leaf(node)
         elif node.left is not None and node.right is not None:
-            # both children are present; find sucessor
             successor = self._successor(node)
             if not successor.is_leaf():
                 self._pass_child_up(successor)
@@ -153,7 +151,6 @@ class BinarySearchTree(object):
             self.size -= 1
             return Node(node.value)
         else:
-            # only one child is present
             self.size -= 1
             return self._pass_child_up(node)
 
@@ -165,7 +162,6 @@ class BinarySearchTree(object):
         self._inorder(node.left, elements)
         elements.append(node.value)
         self._inorder(node.right, elements)
-
         return elements
 
     def _preorder(self, node, elements=None):
@@ -174,6 +170,7 @@ class BinarySearchTree(object):
 
         if node.left is not None:
             self._preorder(node.left, elements)
+
         if node.right is not None:
             self._preorder(node.right, elements)
 
@@ -186,37 +183,12 @@ class BinarySearchTree(object):
             self._postorder(node.left, elements)
         if node.right is not None:
             self._postorder(node.right, elements)
-        elements.append(node.value)
 
+        elements.append(node.value)
         return elements
 
     def traversal(self, method='inorder'):
-        """
-        Traverse tree using a pre-selected method
-
-        Parameters:
-        method:
-        Example:
-        self.bst = BinarySearchTree()
-        self.bst.add(1)
-        self.bst.add(2)
-        self.bst.add(3)
-        self.bst.add(4)
-        self.bst.add(5)
-
-        print "Inorder traversal of binary tree is"
-        print self.bst.traversal(method='inorder')
-        1 2 4 5 3
-
-        print "Preorder traversal of binary tree is"
-        print self.bst.traversal(method='preorder')
-        3 2 1 4 5
-        print "Postorder traversal of binary tree is"
-        print self.bst.traversal(method='postorder')
-        4 5 2 3 1
-
-        """
-        if method not in self.__TRAVERSAL_METHODS:
+        if method not in self._TRANSVERSAL_METHODS:
             raise ValueError
 
         if self.root is None:

@@ -4,6 +4,8 @@
 # License:
 
 import unittest
+import sys
+
 from pydst.lists.queue import Queue
 
 
