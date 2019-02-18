@@ -4,7 +4,8 @@ jobs:
   test:
     machine: true
     working_directory: ~/pydst
-    environment: - PY_PATH: /opt/circleci/.pyenv/versions/3.6.3/bin/
+    environment: 
+    - PY_PATH: /opt/circleci/.pyenv/versions/3.6.3/bin/
 
     steps:
       - checkout
